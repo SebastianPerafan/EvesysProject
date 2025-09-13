@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Agendar Nuevo Evento</title>
+</head>
+<body>
+    <h2>Agenda tu Nuevo Evento</h2>
+    <form th:action="@{/eventos/guardar}" th:object="${evento}" method="post">
+
+        <div><label>Nombre del Evento: <input type="text" th:field="*{nombreEvento}" required /></label></div>
+        <div><label>Fecha del Evento: <input type="date" th:field="*{fecha}" required /></label></div>
+        <hr>
+
+        <h3>Selecciona los Servicios</h3>
+        <div th:each="servicio : ${serviciosDisponibles}">
+            <input type="checkbox" th:field="*{servicios}" th:value="${servicio.id}" />
+            <label th:text="${servicio.nombre} + ' - $' + ${servicio.costo}"></label>
+        </div>
+        <hr>
+
+        <h3>Selecciona los Equipos</h3>
+        <div th:each="equipo : ${equiposDisponibles}">
+            <input type="checkbox" th:field="*{equipos}" th:value="${equipo.id}" />
+            <label th:text="${equipo.nombre} + ' - $' + ${equipo.costoAlquiler}"></label>
+        </div>
+        <hr>
+
+        <button type="submit">Agendar Evento</button>
+    </form>
+    <br>
+    <a th:href="@{/home}">Cancelar</a>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Gestionar Usuarios</title>
+</head>
+<body>
+    <h2>Gestión de Usuarios</h2>
+    <a th:href="@{/admin/usuarios/nuevo}">Crear Nuevo Usuario</a>
+    <br/><br/>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre de Usuario</th>
+                <th>Nombre Completo</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="u : ${usuarios}">
+                <td th:text="${u.id}"></td>
+                <td th:text="${u.userName}"></td>
+                <td th:text="${u.nombreCompleto}"></td>
+                <td th:text="${u.correo}"></td>
+                <td th:text="${u.rol}"></td>
+                <td>
+                    <a th:href="@{/admin/usuarios/editar/{id}(id=${u.id})}">Editar</a>
+                    &nbsp;|&nbsp;
+                    <a th:href="@{/admin/usuarios/eliminar/{id}(id=${u.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <a th:href="@{/home}">Volver al Inicio</a>
+</body>
+</html>

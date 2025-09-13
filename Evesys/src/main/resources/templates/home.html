@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Evesys - Inicio</title>
+</head>
+<body>
+    <h2>Bienvenido a Evesys</h2>
+    <p>Tu rol es: <strong th:text="${rol}">[ROL]</strong></p>
+
+    <nav>
+        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <h3>Panel de Administrador</h3>
+            <a th:href="@{/admin/usuarios}">Gestionar Usuarios</a><br/>
+            <a th:href="@{/admin/servicios}">Gestionar Servicios</a><br/>
+            <a th:href="@{/admin/equipos}">Gestionar Equipos</a><br/>
+            <a th:href="@{/admin/eventos}">Gestionar Eventos</a><br/>
+            </div>
+
+        <div th:if="${#authorization.expression('hasRole(''USER'')')}">
+            <h3>Panel de Usuario</h3>
+            <a th:href="@{/perfil}">Editar mi Perfil</a><br/>
+            <a th:href="@{/eventos/nuevo}">Agendar Nuevo Evento</a><br/>
+            <a th:href="@{/mis-eventos}">Ver Mis Eventos</a><br/>
+            </div>
+            <div th:if="${param.evento_creado}" style="color:green;">
+    ¡Tu evento ha sido agendado con éxito y está pendiente de confirmación!
+</div>
+    </nav>
+    
+    <div th:if="${param.success}" style="color:green;">
+        ¡Tu perfil ha sido actualizado correctamente!
+    </div>
+
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Cerrar Sesión</button>
+    </form>
+</body>
+</html>

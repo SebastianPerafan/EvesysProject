@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Formulario de Usuario</title>
+</head>
+<body>
+    <h2 th:text="${usuario.id == null} ? 'Crear Nuevo Usuario' : 'Editar Usuario'">Formulario</h2>
+    <form th:action="@{/admin/usuarios/guardar}" th:object="${usuario}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        
+        <div><label>Nombre de Usuario (login): <input type="text" th:field="*{userName}" required /></label></div>
+        <div><label>Contraseña: <input type="password" th:field="*{password}" placeholder="Dejar en blanco para no cambiar" /></label></div>
+        <div><label>Nombre Completo: <input type="text" th:field="*{nombreCompleto}" required /></label></div>
+        <div><label>Correo: <input type="email" th:field="*{correo}" required /></label></div>
+        <div><label>Dirección: <input type="text" th:field="*{direccion}" /></label></div>
+        <div><label>Teléfono: <input type="text" th:field="*{telefono}" /></label></div>
+        <div>
+            <label>Rol:
+                <select th:field="*{rol}">
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER">USER</option>
+                </select>
+            </label>
+        </div>
+        <br>
+        <button type="submit">Guardar</button>
+    </form>
+    <br/>
+    <a th:href="@{/admin/usuarios}">Cancelar</a>
+</body>
+</html>

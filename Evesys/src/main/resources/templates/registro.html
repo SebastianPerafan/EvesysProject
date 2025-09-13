@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Evesys - Registrarse</title>
+</head>
+<body>
+    <h2>Crear una Nueva Cuenta</h2>
+    <form th:action="@{/registro}" th:object="${usuario}" method="post">
+
+        <div><label>Nombre de Usuario (para login): <input type="text" th:field="*{userName}" required /></label></div>
+        <div><label>Contraseña: <input type="password" th:field="*{password}" required /></label></div>
+        <hr>
+        <div><label>Nombre Completo: <input type="text" th:field="*{nombreCompleto}" required /></label></div>
+        <div><label>Correo Electrónico: <input type="email" th:field="*{correo}" required /></label></div>
+        <div><label>Dirección: <input type="text" th:field="*{direccion}" /></label></div>
+        <div><label>Teléfono: <input type="text" th:field="*{telefono}" /></label></div>
+        <br>
+        <button type="submit">Registrarse</button>
+    </form>
+    <br>
+    <a th:href="@{/login}">¿Ya tienes una cuenta? Inicia sesión</a>
+</body>
+</html>

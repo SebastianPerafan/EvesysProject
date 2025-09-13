@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Gestionar Equipos</title>
+</head>
+<body>
+    <h2>Gestión de Equipos</h2>
+    <a th:href="@{/admin/equipos/nuevo}">Añadir Nuevo Equipo</a>
+    <br/><br/>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Cantidad Disponible</th>
+                <th>Costo de Alquiler</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="e : ${equipos}">
+                <td th:text="${e.id}"></td>
+                <td th:text="${e.nombre}"></td>
+                <td th:text="${e.descripcion}"></td>
+                <td th:text="${e.cantidadDisponible}"></td>
+                <td th:text="${e.costoAlquiler}"></td>
+                <td>
+                    <a th:href="@{/admin/equipos/editar/{id}(id=${e.id})}">Editar</a>
+                    &nbsp;|&nbsp;
+                    <a th:href="@{/admin/equipos/eliminar/{id}(id=${e.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <a th:href="@{/home}">Volver al Inicio</a>
+</body>
+</html>

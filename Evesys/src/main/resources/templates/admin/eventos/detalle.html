@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Detalle de Evento</title>
+</head>
+<body>
+    <h2>Detalle del Evento</h2>
+    <p><strong>ID:</strong> <span th:text="${evento.id}"></span></p>
+    <p><strong>Nombre:</strong> <span th:text="${evento.nombreEvento}"></span></p>
+    <p><strong>Fecha:</strong> <span th:text="${evento.fecha}"></span></p>
+    <p><strong>Costo Total Calculado:</strong> <span th:text="'$' + ${#numbers.formatDecimal(evento.costoTotal, 1, 2)}"></span></p>
+
+    <div th:if="${evento.usuario != null}">
+        <p><strong>Cliente:</strong> <span th:text="${evento.usuario.nombreCompleto}"></span> (<span th:text="${evento.usuario.correo}"></span>)</p>
+    </div>
+    <div th:unless="${evento.usuario != null}">
+        <p><strong>Cliente:</strong> (Usuario no asignado)</p>
+    </div>
+
+    <h3>Servicios Contratados</h3>
+    <ul>
+        <li th:each="servicio : ${evento.servicios}" th:text="${servicio.nombre}"></li>
+    </ul>
+
+    <h3>Equipos Solicitados</h3>
+    <ul>
+        <li th:each="equipo : ${evento.equipos}" th:text="${equipo.nombre}"></li>
+    </ul>
+
+    <hr>
+
+    <h3>Gestionar Estado del Evento</h3>
+    <p><strong>Estado Actual:</strong> <span th:text="${evento.estado}"></span></p>
+
+    <form th:action="@{/admin/eventos/actualizar-estado}" method="post">
+        <input type="hidden" name="eventoId" th:value="${evento.id}" />
+        <label for="estado">Cambiar estado a:</label>
+        <select id="estado" name="estado">
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="CONFIRMADO">Confirmado</option>
+            <option value="CANCELADO">Cancelado</option>
+            <option value="FINALIZADO">Finalizado</option>
+        </select>
+        <button type="submit">Actualizar Estado</button>
+    </form>
+
+    <br>
+    <a th:href="@{/admin/eventos}">Volver a la Lista de Eventos</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Formulario de Servicio</title>
+</head>
+<body>
+    <h2 th:text="${servicio.id == null} ? 'Crear Nuevo Servicio' : 'Editar Servicio'">Formulario</h2>
+    <form th:action="@{/admin/servicios/guardar}" th:object="${servicio}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        
+        <div><label>Nombre del Servicio: <input type="text" th:field="*{nombre}" required /></label></div>
+        <div><label>Descripción: <textarea th:field="*{descripcion}" rows="4" cols="50" required></textarea></label></div>
+        <div><label>Costo: <input type="number" step="0.01" th:field="*{costo}" required /></label></div>
+        <br>
+        <button type="submit">Guardar</button>
+    </form>
+    <br/>
+    <a th:href="@{/admin/servicios}">Cancelar</a>
+</body>
+</html>

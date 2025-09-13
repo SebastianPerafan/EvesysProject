@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Gestionar Servicios</title>
+</head>
+<body>
+    <h2>Gestión de Servicios</h2>
+    <a th:href="@{/admin/servicios/nuevo}">Crear Nuevo Servicio</a>
+    <br/><br/>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Costo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="s : ${servicios}">
+                <td th:text="${s.id}"></td>
+                <td th:text="${s.nombre}"></td>
+                <td th:text="${s.descripcion}"></td>
+                <td th:text="${s.costo}"></td>
+                <td>
+                    <a th:href="@{/admin/servicios/editar/{id}(id=${s.id})}">Editar</a>
+                    &nbsp;|&nbsp;
+                    <a th:href="@{/admin/servicios/eliminar/{id}(id=${s.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <a th:href="@{/home}">Volver al Inicio</a>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mis Eventos</title>
+</head>
+<body>
+    <h2>Mis Eventos Agendados</h2>
+
+    <div th:if="${eventos.isEmpty()}">
+        <p>Aún no has agendado ningún evento.</p>
+    </div>
+
+    <table border="1" th:unless="${eventos.isEmpty()}">
+        <thead>
+            <tr>
+                <th>Nombre del Evento</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Costo Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="evento : ${eventos}">
+                <td th:text="${evento.nombreEvento}"></td>
+                <td th:text="${evento.fecha}"></td>
+                <td th:text="${evento.estado}"></td>
+                <td th:text="'$' + ${#numbers.formatDecimal(evento.costoTotal, 1, 2)}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/home}">Volver al Inicio</a>
+</body>
+</html>

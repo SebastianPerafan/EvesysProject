@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Todos los Eventos</title>
+</head>
+<body>
+    <h2>Todos los Eventos Agendados</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID Evento</th>
+                <th>Nombre del Evento</th>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="evento : ${eventos}">
+                <td th:text="${evento.id}"></td>
+                <td th:text="${evento.nombreEvento}"></td>
+                <td th:text="${evento.fecha}"></td>
+                <td th:text="${evento.usuario.nombreCompleto}"></td>
+                <td th:text="${evento.estado}"></td>
+                
+                <td>
+                    <a th:href="@{/admin/eventos/{id}(id=${evento.id})}">Ver Detalles</a>
+                     &nbsp;|&nbsp;
+                    <a th:href="@{/admin/eventos/eliminar/{id}(id=${evento.id})}" 
+                       onclick="return confirm('¿Estás seguro de que deseas eliminar este evento?');">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/home}">Volver al Inicio</a>
+</body>
+</html>

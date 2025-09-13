@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Formulario de Equipo</title>
+</head>
+<body>
+    <h2 th:text="${equipo.id == null} ? 'Añadir Nuevo Equipo' : 'Editar Equipo'">Formulario</h2>
+    <form th:action="@{/admin/equipos/guardar}" th:object="${equipo}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        
+        <div><label>Nombre del Equipo: <input type="text" th:field="*{nombre}" required /></label></div>
+        <div><label>Descripción: <textarea th:field="*{descripcion}" rows="4" cols="50"></textarea></label></div>
+        <div><label>Cantidad Disponible: <input type="number" th:field="*{cantidadDisponible}" required /></label></div>
+        <div><label>Costo de Alquiler: <input type="number" step="0.01" th:field="*{costoAlquiler}" required /></label></div>
+        <br>
+        <button type="submit">Guardar</button>
+    </form>
+    <br/>
+    <a th:href="@{/admin/equipos}">Cancelar</a>
+</body>
+</html>
