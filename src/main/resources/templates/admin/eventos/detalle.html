@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Detalle de Evento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="body-bg">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header"><h2 class="h4 mb-0">Detalle del Evento</h2></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Datos Generales</h5>
+                    <p><strong>ID:</strong> <span th:text="${evento.id}"></span></p>
+                    <p><strong>Nombre:</strong> <span th:text="${evento.nombreEvento}"></span></p>
+                    <p><strong>Fecha:</strong> <span th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}"></span></p>
+                    <div th:if="${evento.usuario != null}">
+                        <p><strong>Cliente:</strong> <span th:text="${evento.usuario.nombreCompleto}"></span> (<span th:text="${evento.usuario.correo}"></span>)</p>
+                    </div>
+                    <p><strong>Costo Total:</strong> <span class="fw-bold text-success" th:text="'$' + ${#numbers.formatDecimal(evento.costoTotal, 1, 2, 'COMMA')}"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Servicios y Equipos</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item active" aria-current="true">Servicios Contratados</li>
+                        <li th:each="servicio : ${evento.servicios}" th:text="${servicio.nombre}" class="list-group-item"></li>
+                        <li class="list-group-item active" aria-current="true">Equipos Solicitados</li>
+                        <li th:each="equipo : ${evento.equipos}" th:text="${equipo.nombre}" class="list-group-item"></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5>Gestionar Estado</h5>
+                    <p class="mb-0"><strong>Estado Actual:</strong> <span class="badge fs-6" th:classappend="${evento.estado == 'CONFIRMADO'} ? 'bg-success' : (${evento.estado == 'CANCELADO'} ? 'bg-danger' : 'bg-warning')" th:text="${evento.estado}"></span></p>
+                </div>
+                <form th:action="@{/admin/eventos/actualizar-estado}" method="post" class="d-flex align-items-end">
+                    <input type="hidden" name="eventoId" th:value="${evento.id}" />
+                    <div>
+                        <label for="estado" class="form-label mb-0">Cambiar estado a:</label>
+                        <select id="estado" name="estado" class="form-select form-select-sm">
+                            <option value="PENDIENTE">Pendiente</option>
+                            <option value="CONFIRMADO">Confirmado</option>
+                            <option value="CANCELADO">Cancelado</option>
+                            <option value="FINALIZADO">Finalizado</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm ms-2">Actualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

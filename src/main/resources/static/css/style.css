@@ -1,0 +1,37 @@
+/* Definimos los colores principales basados en el logo de Evesys */
+:root {
+    --evesys-primary-blue: #0d2d5b; /* Azul oscuro del logo */
+    --evesys-accent-orange: #f0ad4e; /* Naranja del logo */
+}
+
+/* Sobrescribimos los colores por defecto de Bootstrap */
+.bg-primary {
+    background-color: var(--evesys-primary-blue) !important;
+}
+
+.btn-primary {
+    background-color: var(--evesys-primary-blue);
+    border-color: var(--evesys-primary-blue);
+}
+
+.btn-primary:hover {
+    background-color: #081e3f; /* Un azul un poco más oscuro para el hover */
+    border-color: #081e3f;
+}
+
+.text-primary {
+    color: var(--evesys-primary-blue) !important;
+}
+
+.text-accent {
+    color: var(--evesys-accent-orange) !important;
+}
+
+.body-bg {
+    background-color: #f8f9fa; /* Un gris muy claro para el fondo */
+}
+
+.login-container {
+    max-width: 450px;
+    margin-top: 5rem;
+}

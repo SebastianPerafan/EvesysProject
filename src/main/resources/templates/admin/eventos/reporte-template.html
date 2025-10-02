@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 10px; }
+        th { background-color: #f2f2f2; }
+        .header { text-align: center; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Evesys - Reporte de Eventos</h2>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Evento</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Estado</th>
+                <th>Costo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="evento : ${eventos}">
+                <td th:text="${evento.id}"></td>
+                <td th:text="${evento.nombreEvento}"></td>
+                <td th:text="${#temporals.format(evento.fecha, 'dd/MM/yyyy')}"></td>
+                <td th:text="${evento.usuario?.nombreCompleto}"></td>
+                <td th:text="${evento.estado}"></td>
+                <td th:text="'$' + ${#numbers.formatDecimal(evento.costoTotal, 1, 2, 'COMMA')}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

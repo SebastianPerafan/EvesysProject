@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evesys - Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="body-bg">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container mt-4">
+
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
+        <div class="container-fluid py-5">
+            <img th:src="@{/img/IMAGEN EVESYS.jpg}" alt="Evesys Logo" style="width: 120px; margin-bottom: 1rem;"/>
+            <h1 class="display-5 fw-bold text-primary" th:text="'¡Bienvenido de vuelta, ' + ${#authentication.name} + '!'">¡Bienvenido!</h1>
+            <p class="fs-4">Aquí tienes un resumen de las acciones que puedes realizar en el sistema.</p>
+        </div>
+    </div>
+
+    <div th:if="${param.evento_creado}" class="alert alert-success">
+        ¡Tu evento ha sido agendado con éxito y está pendiente de confirmación!
+    </div>
+
+    <div class="row align-items-md-stretch">
+
+        <div th:if="${#authorization.expression('hasRole(''USER'')')}" class="col-md-6 mb-4">
+            <div class="h-100 p-5 text-white rounded-3 shadow" style="background-color: #0d2d5b;">
+                <h2>Agendar un Evento</h2>
+                <p>Crea un nuevo evento desde cero, seleccionando los servicios y equipos que necesites para una ocasión perfecta.</p>
+                <a th:href="@{/eventos/nuevo}" class="btn btn-outline-light">Agendar Ahora</a>
+            </div>
+        </div>
+        <div th:if="${#authorization.expression('hasRole(''USER'')')}" class="col-md-6 mb-4">
+            <div class="h-100 p-5 bg-light border rounded-3 shadow">
+                <h2>Mis Eventos</h2>
+                <p>Revisa el historial de los eventos que has agendado, consulta su estado y los detalles de cada uno.</p>
+                <a th:href="@{/mis-eventos}" class="btn btn-outline-secondary">Ver Mis Eventos</a>
+            </div>
+        </div>
+
+        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-md-4 mb-4">
+            <div class="h-100 p-5 bg-light border rounded-3 shadow">
+                <h4>Gestionar Eventos</h4>
+                <p>Visualiza y administra todos los eventos de los clientes.</p>
+                <a th:href="@{/admin/eventos}" class="btn btn-outline-primary">Ir a Eventos</a>
+            </div>
+        </div>
+        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-md-4 mb-4">
+            <div class="h-100 p-5 bg-light border rounded-3 shadow">
+                <h4>Gestionar Catálogo</h4>
+                <p>Administra los servicios y equipos disponibles para los eventos.</p>
+                <a th:href="@{/admin/servicios}" class="btn btn-outline-secondary me-2">Servicios</a>
+                <a th:href="@{/admin/equipos}" class="btn btn-outline-secondary">Equipos</a>
+            </div>
+        </div>
+         <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="col-md-4 mb-4">
+            <div class="h-100 p-5 bg-light border rounded-3 shadow">
+                <h4>Gestionar Sistema</h4>
+                <p>Administra los usuarios del sistema y genera reportes.</p>
+                <a th:href="@{/admin/usuarios}" class="btn btn-outline-secondary me-2">Usuarios</a>
+                <a th:href="@{/admin/eventos/reporte}" class="btn btn-outline-secondary">Reportes</a>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
